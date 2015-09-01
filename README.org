@@ -1,0 +1,51 @@
+* Small rpn based parser and interpreter written in java
+  Written in 2 hours as a fun sideproject for learning java.
+  Small cli based parser and interpreter that takes in a line of input as a mathematical expression.
+  Each instance of the program has its own set of variables which can be set with the assign function or with the assignment operator '='
+** Buildt-in math functions
+   The interpreter currently supports the following buildt-in mathematical functions:
+   * sin,cos,tan
+   * asin,acos,atan
+   * sqrt
+   There is also a no-argument function that returns a random number, called 'random()'
+** Variables
+   All the variables are stored in a java HashMap, and can be named with the following convention: "[a-zA-Z][a-zA-Z0-9]*"
+   Variables are lazy evaled, however currently expressions are not.
+   This has the interesting effect that if you set a variable equal to ONLY another variable, it will become an alias for that variable,
+   which means that its value will allways be equal to the value of the variable it is aliased to, until you set it to something else.
+   When you start the program, it will create a new variable called pi, and put the value of pi in it.
+   Since there are no constants in the interpreter, it is possible to redifine the variable called pi. 
+   Doing so will not break any math functions as they calculate through the Java Math library.
+   It will however no longer be pi, which can be confusing, so it is advised to not redifine it.
+** Datatypes
+   All numbers in the parser are standard Java Doubles.
+   Doubles are the only real datatypes you can interact with through the program, however there are technically 3 more datatypes:
+   * Functions are stored as Strings
+   * Operators are stored as Characters
+   * Variables are also stored as Strings
+** About the parsing algorithm
+   The algorithm used to parse is an slightly extended (to account for variables and multi argument functions) of the [[http://www.wikipedia.org/wiki/Shunting_Yard][shunting yard algorithm found on wikipedia]].
+   The algorithm works by using a Deque/Queue for the output (Im using an ArrayList here for simplicity), and a temporary stack for the operators.
+   The alogrithm implemented in the parser is as follows:
+   * While there are still tokens left
+     * if token is a String
+       * if string is a function name, push it on the operator stack
+       * else add it to the end deque
+     * if token is a number, push it to the end deque
+     * if token is a comma
+       * while the top of the operator stack is not a ( or a comma
+	 * add the operator to the end deque
+       * pop the ( or comma from the top of the stack
+       * push the new comma to the stack
+     * if token is a (, push it to the operator stack
+     * if token is a )
+       * same procedure as for comma
+     * if token is whitespace, skip it
+     * if token is an operator
+       * if the operator is left-associative
+	 * while top of operator stack has a priority lessthan or equal to tokens
+	   * pop operator from stack to end deque
+       * if the operator is right-associative do the same but with less than priority instead of less than or equal to
+       * finally push the new operator to the stack
+   * Pop the remaining operators to the end deque
+   
