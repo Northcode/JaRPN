@@ -27,7 +27,7 @@
    * Operators are stored as Characters
    * Variables are also stored as Strings
 ** About the parsing algorithm
-   The algorithm used to parse is an slightly extended (to account for variables and multi argument functions) of the [[http://www.wikipedia.org/wiki/Shunting_Yard][shunting yard algorithm found on wikipedia]].
+   The algorithm used to parse is an slightly extended (to account for variables and multi argument functions) of the [[https://en.wikipedia.org/wiki/Shunting-yard_algorithm][shunting yard algorithm found on wikipedia]].
    The algorithm works by using a Deque/Queue for the output (Im using an ArrayList here for simplicity), and a temporary stack for the operators.
    The alogrithm implemented in the parser is as follows:
    * While there are still tokens left

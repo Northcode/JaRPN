@@ -53,7 +53,7 @@ Doubles are the only real datatypes you can interact with through the program, h
 
 ## About the parsing algorithm<a id="sec-1-4" name="sec-1-4"></a>
 
-The algorithm used to parse is an slightly extended (to account for variables and multi argument functions) of the [shunting yard algorithm found on wikipedia](http://www.wikipedia.org/wiki/Shunting_Yard).
+The algorithm used to parse is an slightly extended (to account for variables and multi argument functions) of the [shunting yard algorithm found on wikipedia](https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
 The algorithm works by using a Deque/Queue for the output (Im using an ArrayList here for simplicity), and a temporary stack for the operators.
 The alogrithm implemented in the parser is as follows:
 -   While there are still tokens left
